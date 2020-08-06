@@ -1,0 +1,53 @@
+{
+  "name": "@internetarchive/ia-book-search-results",
+  "version": "0.0.0",
+  "description": "Book search results pane for ia-menu-slider",
+  "author": "Shane Riley, Internet Archive",
+  "license": "AGPL-3.0-only",
+  "main": "index.js",
+  "module": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "start": "es-dev-server --app-index demo/index.html --node-resolve --open --watch",
+    "lint:eslint": "eslint --ext .js,.html . --ignore-path .gitignore",
+    "format:eslint": "eslint --ext .js,.html . --fix --ignore-path .gitignore",
+    "lint": "npm run lint:eslint",
+    "format": "npm run format:eslint",
+    "test": "karma start --coverage",
+    "test:watch": "karma start --auto-watch=true --single-run=false"
+  },
+  "dependencies": {
+    "lit-html": "^1.1.2",
+    "lit-element": "^2.2.1"
+  },
+  "devDependencies": {
+    "@internetarchive/ia-icons": "^0.4.0",
+    "@internetarchive/ia-menu-slider": "0.0.2-alpha.904f07f",
+    "@open-wc/eslint-config": "^2.0.0",
+    "@open-wc/testing": "^2.0.0",
+    "@open-wc/testing-karma": "^3.0.0",
+    "deepmerge": "^3.2.0",
+    "es-dev-server": "^1.23.0",
+    "eslint": "^6.1.0",
+    "husky": "^1.0.0",
+    "lint-staged": "^10.0.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@open-wc/eslint-config"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
+}
