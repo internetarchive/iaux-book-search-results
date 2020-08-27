@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Search Results</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      body {
+        color: #ffffff;
+        background: #181818;
+      }
+    }
+    :root {
+      --menuButtonLabelDisplay: block;
+      --menuSliderBg: #151515;
+      --primaryTextColor: #fff;
+      --menuWidth: 320px;
+      --animationTiming: .25s;
+      --iconFillColor: #fff;
+      --iconStrokeColor: #fff;
+      --iconWidth: 40px;
+      --iconHeight: 40px;
+      --activeButtonBg: #282828;
+      --searchResultText: #adaedc;
+      --searchResultBg: #272958;
+      --searchResultBorder: #fff;
+    }
+
+    html {
+      font: normal 10px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    button {
+      height: 2rem;
+      margin: 1rem;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: minmax(auto, calc(100vh - 4rem));
+    }
+
+    #menu {
+      position: relative;
+      width: var(--menuWidth);
+    }
+
+    section {
+      position: relative;
+      padding: 3rem;
+    }
+
+    form {
+      max-width: 40rem;
+    }
+
+    h2 {
+      padding-bottom: 2rem;
+      font-size: 2.4rem;
+    }
+
+    label {
+      display: block;
+      padding-bottom: 1rem;
+      font-size: 1.6rem;
+    }
+
+    [type="text"] {
+      width: 100%;
+      height: 3.2rem;
+      padding: .5rem;
+      margin-bottom: 1.6rem;
+      font: normal 1.6rem "Helvetica Neue", Helvetica, Arial, sans-serif;
+      box-sizing: border-box;
+    }
+
+    [type="submit"] {
+      padding: 1rem 1.6rem;
+      -webkit-appearance: none;
+      appearance: none;
+      font: normal 1.6rem "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: var(--searchResultText);
+      border: none;
+      background: var(--searchResultBg);
+    }
+
+    dl {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-gap: 1.2rem 2rem;
+      font-size: 1.4rem;
+    }
+    dt, dd {
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <button>Toggle menu</button>
+  <main>
+    <div id="menu"></div>
+    <section>
+      <form id="new_item">
+        <h2>Change book</h2>
+        <label for="item_id">Item ID</label>
+        <input id="item_id" name="itemID" type="text" value="artofcaricaturin006061mbp" />
+        <input type="submit" value="Update item" />
+      </form>
+      <dl id="metadata"></dl>
+    </section>
+  </main>
+  <div id="demo"></div>
+
+  <script type="module">
+    import { render } from 'lit-html';
+    import { html, css, LitElement } from 'lit-element';
+    import '../ia-book-search-results.js';
+    import '@internetarchive/icon-search/icon-search.js';
+    import '@internetarchive/ia-menu-slider/ia-menu-slider';
+    import searchController from './search_controller.js';
+
+    Object.assign(searchController, {
+      itemID: 'artofcaricaturin006061mbp',
+      docID: 'artofcaricaturin006061mbp',
+      datanode: 'ia902704.us.archive.org',
+      path: '/22/items/artofcaricaturin006061mbp',
+    });
+
+    const renderMetadata = (metadata) => {
+      render(html`
+        <dt>Item ID:</dt>
+        <dd>${metadata.itemID}</dd>
+        <dt>Document ID:</dt>
+        <dd>${metadata.docID}</dd>
+        <dt>Datanode:</dt>
+        <dd>${metadata.datanode}</dd>
+        <dt>File path:</dt>
+        <dd>${metadata.path}</dd>
+      `, document.querySelector('#metadata'));
+    };
+
+    const menuSlider = document.createElement('ia-menu-slider');
+    const searchMenu = {
+      icon: html`
+        <ia-icon-search></ia-icon-search>
+      `,
+      label: 'Search results',
+      id: 'search',
+      component: html`<ia-book-search-results></ia-book-search-results>`
+    };
+    menuSlider.menus = [searchMenu];
+    menuSlider.open = true;
+    menuSlider.selectedMenu = searchMenu.id;
+
+    document.querySelector('#menu').appendChild(menuSlider);
+    renderMetadata(searchController);
+
+    // When search form within ia-book-search-results submitted, respond by
+    // passing search query to search controller.
+    document.addEventListener('bookSearchInitiated', ({ detail }) => {
+      searchController.performSearch(detail.query);
+    });
+
+    menuSlider.updateComplete.then(() => {
+      const searchResults = menuSlider.shadowRoot.querySelector('ia-book-search-results');
+
+      // Toggle button for menu drawer
+      document.querySelector('button').addEventListener('click', () => {
+        menuSlider.open = !menuSlider.open;
+      });
+
+      // Handles submission of the item ID change form. Grabs info from MDAPI
+      // and updates properties on the controller necessary for performing a
+      // search query.
+      document.querySelector('#new_item').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const button = e.currentTarget.querySelector('[type=submit]');
+        const originalButtonValue = button.value;
+        const identifier = e.currentTarget.querySelector('#item_id').value;
+
+        button.setAttribute('disabled', true);
+        button.value = 'Loading...';
+
+        searchController.fetchMetadata(identifier, () => {
+          button.removeAttribute('disabled');
+          button.value = originalButtonValue;
+          renderMetadata(searchController);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

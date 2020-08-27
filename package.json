@@ -11,20 +11,21 @@
   },
   "scripts": {
     "start": "es-dev-server --app-index demo/index.html --node-resolve --open --watch",
-    "lint:eslint": "eslint --ext .js,.html . --ignore-path .gitignore",
-    "format:eslint": "eslint --ext .js,.html . --fix --ignore-path .gitignore",
+    "lint:eslint": "eslint --ext .js . --ignore-path .gitignore",
+    "format:eslint": "eslint --ext .js . --fix --ignore-path .gitignore",
     "lint": "npm run lint:eslint",
     "format": "npm run format:eslint",
     "test": "karma start --coverage",
     "test:watch": "karma start --auto-watch=true --single-run=false"
   },
   "dependencies": {
-    "lit-html": "^1.1.2",
-    "lit-element": "^2.2.1"
+    "@internetarchive/icon-collapse-sidebar": "^1.1.0",
+    "lit-element": "^2.2.1",
+    "lit-html": "^1.1.2"
   },
   "devDependencies": {
-    "@internetarchive/ia-icons": "^0.4.0",
     "@internetarchive/ia-menu-slider": "0.0.2-alpha.904f07f",
+    "@internetarchive/icon-search": "^1.1.0",
     "@open-wc/eslint-config": "^2.0.0",
     "@open-wc/testing": "^2.0.0",
     "@open-wc/testing-karma": "^3.0.0",
@@ -32,7 +33,8 @@
     "es-dev-server": "^1.23.0",
     "eslint": "^6.1.0",
     "husky": "^1.0.0",
-    "lint-staged": "^10.0.0"
+    "lint-staged": "^10.0.0",
+    "sinon": "^9.0.3"
   },
   "eslintConfig": {
     "extends": [

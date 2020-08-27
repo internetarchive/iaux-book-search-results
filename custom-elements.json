@@ -1,0 +1,42 @@
+{
+  "version": 2,
+  "tags": [
+    {
+      "name": "ia-book-search-results",
+      "description": "Book search results pane for ia-menu-slider",
+      "properties": [
+        {
+          "name": "results",
+          "type": "Array",
+          "description": "An array of search results",
+          "default": "[]"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "cssProperties": [
+        {
+          "name": "--primaryTextColor",
+          "description": "Color used for text nodes",
+          "type": "Color"
+        }, {
+          "name": "--activeButtonBg",
+          "description": "Background color of search all files checkbox",
+          "type": "Color"
+        }, {
+          "name": "--searchResultText",
+          "description": "Highlighted search term text color",
+          "type": "Color"
+        }, {
+          "name": "--searchResultBg",
+          "description": "Highlighted search term background color",
+          "type": "Color"
+        }, {
+          "name": "--searchResultBorder",
+          "description": "Highlighted search term border color",
+          "type": "Color"
+        }
+      ]
+    }
+  ]
+}

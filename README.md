@@ -38,6 +38,8 @@ render. Each result can have these properties:
 
 ```css
 ia-book-search-results {
+  --primaryTextColor: #fff;
+  --activeButtonBg: #282828;
   --searchResultText: #adaedc;
   --searchResultBg: #272958;
   --searchResultBorder: #fff;
