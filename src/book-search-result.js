@@ -1,3 +1,4 @@
+import { nothing } from 'lit-html';
 import { html, LitElement } from 'lit-element';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 
@@ -28,9 +29,11 @@ export class BookSearchResult extends LitElement {
     const { match } = this;
     const coverImage = html`<img src="${match.cover}" />`;
     return html`
-      ${match.cover ? coverImage : ''}
-      <h4>${match.title}</h4>
-      ${this.highlightedHit(match.text)}
+      <li>
+        ${match.cover ? coverImage : nothing}
+        <h4>${match.title}</h4>
+        ${this.highlightedHit(match.text)}
+      </li>
     `;
   }
 }

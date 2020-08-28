@@ -81,9 +81,7 @@ export class IABookSearchResults extends LitElement {
         </fieldset>
       </form>
       <ul>
-        <li>
-          ${this.results.map(match => html`<book-search-result .match=${match}></book-search-result>`)}
-        </li>
+        ${this.results.map(match => html`<book-search-result .match=${match}></book-search-result>`)}
       </ul>
     `;
   }
