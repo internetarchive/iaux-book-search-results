@@ -1,5 +1,4 @@
 import { html, LitElement } from 'lit-element';
-import closeIcon from '@internetarchive/icon-collapse-sidebar';
 import bookSearchResultsCSS from './styles/ia-book-search-results.js';
 import { BookSearchResult } from './book-search-result.js';
 
@@ -67,11 +66,8 @@ export class IABookSearchResults extends LitElement {
   render() {
     return html`
       <header>
-        <div>
-          <h3>Search inside</h3>
-          ${this.resultsCount}
-        </div>
-        <a href="#" class="close" @click=${this.unsetSelectedMenuOption}>${closeIcon}</a>
+        <h3>Search inside</h3>
+        ${this.resultsCount}
       </header>
       <form action="" method="get" @submit=${this.performSearch}>
         <fieldset>
