@@ -32,17 +32,6 @@ export class IABookSearchResults extends LitElement {
     this.results = detail.results;
   }
 
-  unsetSelectedMenuOption(e) {
-    e.preventDefault();
-    this.dispatchEvent(new CustomEvent('menuTypeSelected', {
-      bubbles: true,
-      composed: true,
-      detail: {
-        id: 'search',
-      },
-    }));
-  }
-
   setQuery(e) {
     this.query = e.currentTarget.value;
   }
