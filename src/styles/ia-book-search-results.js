@@ -14,8 +14,8 @@ export default css`
 
 header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+padding: 0 2rem;
 }
 
 h3 {
@@ -32,23 +32,8 @@ header p {
   font-style: italic;
 }
 
-header div {
-  display: flex;
-  align-items: baseline;
-}
-
-a.close {
-  justify-self: end;
-}
-
-a.close svg {
-  width: 18px;
-  height: 18px;
-  fill: #fff;
-}
-
 fieldset {
-  padding: 2rem 0 1rem 0;
+  padding: 0 0 1rem 0;
   border: none;
 }
 

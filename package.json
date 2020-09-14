@@ -24,7 +24,7 @@
     "lit-html": "^1.1.2"
   },
   "devDependencies": {
-    "@internetarchive/ia-menu-slider": "0.0.2-alpha.904f07f",
+    "@internetarchive/ia-menu-slider": "0.1.0-alpha.1b6f614",
     "@internetarchive/icon-search": "^1.1.0",
     "@open-wc/eslint-config": "^2.0.0",
     "@open-wc/testing": "^2.0.0",

@@ -118,26 +118,6 @@ describe('<ia-book-search-results>', () => {
     expect(response).to.exist;
   });
 
-  it('emits a custom event to close the menu', async () => {
-    const el = await fixture(container(results));
-
-    setTimeout(() => (
-      el.unsetSelectedMenuOption(new Event('click'))
-    ));
-    const response = await oneEvent(el, 'menuTypeSelected');
-
-    expect(response).to.exist;
-  });
-
-  it('closes the menu when close element clicked', async () => {
-    IABookSearchResults.prototype.unsetSelectedMenuOption = sinon.fake();
-
-    const el = await fixture(container(results));
-
-    el.shadowRoot.querySelector('.close').click();
-    expect(el.unsetSelectedMenuOption.callCount).to.equal(1);
-  });
-
   it('uses a singular noun when one result given', async () => {
     const el = await fixture(container([results[0]]));
     const resultsCount = await fixture(el.resultsCount);
