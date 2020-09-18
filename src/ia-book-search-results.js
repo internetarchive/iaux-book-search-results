@@ -12,6 +12,7 @@ export class IABookSearchResults extends LitElement {
 
   static get properties() {
     return {
+      query: { type: String },
       renderHeader: { type: Boolean },
       results: {
         type: Array,
@@ -78,7 +79,7 @@ export class IABookSearchResults extends LitElement {
         <fieldset>
           <input name="all_files" id="all_files" type="checkbox" />
           <label class="checkbox" for="all_files">Search all files</label>
-          <input type="search" name="query" @keyup=${this.setQuery} />
+          <input type="search" name="query" @keyup=${this.setQuery} .value=${this.query} />
         </fieldset>
       </form>
       <ul>

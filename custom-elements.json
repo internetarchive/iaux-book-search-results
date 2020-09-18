@@ -6,6 +6,12 @@
       "description": "Book search results pane for ia-menu-slider",
       "properties": [
         {
+          "name": "query",
+          "type": "String",
+          "description": "A starting value for the query field",
+          "default": "\"\""
+        },
+        {
           "name": "results",
           "type": "Array",
           "description": "An array of search results",

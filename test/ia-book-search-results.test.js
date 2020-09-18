@@ -9,8 +9,8 @@ import { IABookSearchResults } from '../src/ia-book-search-results.js';
 
 customElements.define('ia-book-search-results', IABookSearchResults);
 
-const container = (results = []) => (
-  html`<ia-book-search-results .results=${results}></ia-book-search-results>`
+const container = (results = [], query = '') => (
+  html`<ia-book-search-results .results=${results} .query=${query}></ia-book-search-results>`
 );
 
 const searchQuery = 'Bristol';
@@ -53,9 +53,11 @@ describe('<ia-book-search-results>', () => {
   });
 
   it('sets default properties', async () => {
-    const el = await fixture(container(results));
+    const query = 'bristol';
+    const el = await fixture(container(results, query));
 
     expect(el.results).to.equal(results);
+    expect(el.query).to.equal(query);
   });
 
   it('sets results when passed in via event object', async () => {

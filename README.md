@@ -20,7 +20,7 @@ yarn add @internetarchive/ia-menu-slider
   import 'ia-book-search-results/ia-book-search-results.js';
 </script>
 
-<ia-book-search-results></ia-book-search-results>
+<ia-book-search-results .query='bristol'></ia-book-search-results>
 ```
 
 Supply the element with an optional array of search results to immediately
