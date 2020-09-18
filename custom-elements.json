@@ -12,7 +12,30 @@
           "default": "[]"
         }
       ],
-      "events": [],
+      "events": [{
+        "name": "bookSearchInitiated",
+        "description": "Search form submit event",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "String",
+            "description": "The search query"
+          }
+        ]
+      }, {
+        "name": "closeMenu",
+        "description": "Triggered when a search result clicked to close the menu slider"
+      }, {
+        "name": "resultSelected",
+        "description": "Search result click event",
+        "parameters": [
+          {
+            "name": "match",
+            "type": "Object",
+            "description": "The match property from the book-search-result element"
+          }
+        ]
+      }],
       "slots": [],
       "cssProperties": [
         {

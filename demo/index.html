@@ -171,8 +171,6 @@
     });
 
     menuSlider.updateComplete.then(() => {
-      const searchResults = menuSlider.shadowRoot.querySelector('ia-book-search-results');
-
       // Toggle button for menu drawer
       document.querySelector('button').addEventListener('click', () => {
         menuSlider.open = !menuSlider.open;
@@ -195,6 +193,15 @@
           button.value = originalButtonValue;
           renderMetadata(searchController);
         });
+      });
+
+      document.addEventListener('resultSelected', ({ detail }) => {
+        console.log(`Search result from page ${detail.match.par[0].page} was clicked`);
+      });
+
+      document.addEventListener('closeMenu', () => {
+        menuSlider.open = false;
+        menuSlider.selectedMenu = '';
       });
     });
   </script>

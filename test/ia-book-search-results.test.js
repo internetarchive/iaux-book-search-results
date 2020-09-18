@@ -133,4 +133,26 @@ describe('<ia-book-search-results>', () => {
 
     expect(el.shadowRoot.querySelector('header p').innerText).to.include('2');
   });
+
+  it('emits a resultSelected event when a search result is clicked', async () => {
+    const el = await fixture(container(results));
+
+    setTimeout(() => (
+      el.shadowRoot.querySelector('book-search-result').querySelector('li').click()
+    ));
+    const response = await oneEvent(el, 'resultSelected');
+
+    expect(response).to.exist;
+  });
+
+  it('emits a closeMenu event when a search result is clicked', async () => {
+    const el = await fixture(container(results));
+
+    setTimeout(() => (
+      el.shadowRoot.querySelector('book-search-result').querySelector('li').click()
+    ));
+    const response = await oneEvent(el, 'closeMenu');
+
+    expect(response).to.exist;
+  });
 });

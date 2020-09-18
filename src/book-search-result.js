@@ -25,11 +25,21 @@ export class BookSearchResult extends LitElement {
     `;
   }
 
+  resultSelected() {
+    this.dispatchEvent(new CustomEvent('resultSelected', {
+      bubbles: true,
+      composed: true,
+      detail: {
+        match: this.match,
+      },
+    }));
+  }
+
   render() {
     const { match } = this;
     const coverImage = html`<img src="${match.cover}" />`;
     return html`
-      <li>
+      <li @click=${this.resultSelected}>
         ${match.cover ? coverImage : nothing}
         <h4>${match.title}</h4>
         ${this.highlightedHit(match.text)}

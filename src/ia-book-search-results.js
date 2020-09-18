@@ -51,6 +51,13 @@ export class IABookSearchResults extends LitElement {
     }));
   }
 
+  selectResult() {
+    this.dispatchEvent(new CustomEvent('closeMenu', {
+      bubbles: true,
+      composed: true,
+    }));
+  }
+
   get resultsCount() {
     const count = this.results.length;
     return count ? html`<p>(${count} result${count > 1 ? 's' : ''})</p>` : nothing;
@@ -75,7 +82,7 @@ export class IABookSearchResults extends LitElement {
         </fieldset>
       </form>
       <ul>
-        ${this.results.map(match => html`<book-search-result .match=${match}></book-search-result>`)}
+        ${this.results.map(match => html`<book-search-result .match=${match} @resultSelected=${this.selectResult}></book-search-result>`)}
       </ul>
     `;
   }
