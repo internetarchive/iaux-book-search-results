@@ -15,7 +15,7 @@ export default css`
 header {
   display: flex;
   align-items: center;
-padding: 0 2rem;
+  padding: 0 2rem 0 0;
 }
 
 h3 {

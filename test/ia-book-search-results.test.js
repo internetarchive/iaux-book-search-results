@@ -124,4 +124,13 @@ describe('<ia-book-search-results>', () => {
 
     expect(resultsCount.innerHTML).to.include('1 result');
   });
+
+  it('can render header with active options count', async () => {
+    const el = await fixture(container(results));
+    el.renderHeader = true;
+
+    await el.updateComplete;
+
+    expect(el.shadowRoot.querySelector('header p').innerText).to.include('2');
+  });
 });

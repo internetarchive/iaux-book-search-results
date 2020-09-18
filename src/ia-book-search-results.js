@@ -1,3 +1,4 @@
+import { nothing } from 'lit-html';
 import { html, LitElement } from 'lit-element';
 import bookSearchResultsCSS from './styles/ia-book-search-results.js';
 import { BookSearchResult } from './book-search-result.js';
@@ -11,6 +12,7 @@ export class IABookSearchResults extends LitElement {
 
   static get properties() {
     return {
+      renderHeader: { type: Boolean },
       results: {
         type: Array,
       },
@@ -19,7 +21,9 @@ export class IABookSearchResults extends LitElement {
 
   constructor() {
     super();
+
     this.results = [];
+    this.renderHeader = false;
 
     this.bindBookReaderListeners();
   }
@@ -49,15 +53,20 @@ export class IABookSearchResults extends LitElement {
 
   get resultsCount() {
     const count = this.results.length;
-    return count ? html`<p>(${count} result${count > 1 ? 's' : ''})</p>` : html``;
+    return count ? html`<p>(${count} result${count > 1 ? 's' : ''})</p>` : nothing;
+  }
+
+  get headerSection() {
+    const header = html`<header>
+      <h3>Search inside</h3>
+      ${this.resultsCount}
+    </header>`;
+    return this.renderHeader ? header : nothing;
   }
 
   render() {
     return html`
-      <header>
-        <h3>Search inside</h3>
-        ${this.resultsCount}
-      </header>
+      ${this.headerSection}
       <form action="" method="get" @submit=${this.performSearch}>
         <fieldset>
           <input name="all_files" id="all_files" type="checkbox" />

@@ -25,6 +25,8 @@
       --searchResultText: #adaedc;
       --searchResultBg: #272958;
       --searchResultBorder: #fff;
+      --closeMenuIconWidth: 20px;
+      --closeMenuIconHeight: 20px;
     }
 
     html {
@@ -153,7 +155,7 @@
       `,
       label: 'Search results',
       id: 'search',
-      component: html`<ia-book-search-results></ia-book-search-results>`
+      component: html`<ia-book-search-results ?renderHeader=${true}></ia-book-search-results>`
     };
     menuSlider.menus = [searchMenu];
     menuSlider.open = true;
