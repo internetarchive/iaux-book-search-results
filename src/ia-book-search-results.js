@@ -14,6 +14,7 @@ export class IABookSearchResults extends LitElement {
     return {
       query: { type: String },
       renderHeader: { type: Boolean },
+      renderSearchAllFiles: { type: Boolean },
       results: {
         type: Array,
       },
@@ -72,13 +73,20 @@ export class IABookSearchResults extends LitElement {
     return this.renderHeader ? header : nothing;
   }
 
+  get searchMultipleControls() {
+    const controls = html`
+      <input name="all_files" id="all_files" type="checkbox" />
+      <label class="checkbox" for="all_files">Search all files</label>
+    `;
+    return this.renderSearchAllFiles ? controls : nothing;
+  }
+
   render() {
     return html`
       ${this.headerSection}
       <form action="" method="get" @submit=${this.performSearch}>
         <fieldset>
-          <input name="all_files" id="all_files" type="checkbox" />
-          <label class="checkbox" for="all_files">Search all files</label>
+          ${this.searchMultipleControls}
           <input type="search" name="query" @keyup=${this.setQuery} .value=${this.query} />
         </fieldset>
       </form>

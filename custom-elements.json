@@ -12,6 +12,18 @@
           "default": "\"\""
         },
         {
+          "name": "renderHeader",
+          "type": "Boolean",
+          "description": "A toggle for header rendering",
+          "default": "false"
+        },
+        {
+          "name": "renderSearchAllFiles",
+          "type": "Boolean",
+          "description": "A toggle for 'search all files' label and checkbox",
+          "default": "false"
+        },
+        {
           "name": "results",
           "type": "Array",
           "description": "An array of search results",

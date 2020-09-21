@@ -136,6 +136,15 @@ describe('<ia-book-search-results>', () => {
     expect(el.shadowRoot.querySelector('header p').innerText).to.include('2');
   });
 
+  it('renders search all files checkbox when enabled', async () => {
+    const el = await fixture(container(results));
+    el.renderSearchAllFiles = true;
+
+    await el.updateComplete;
+
+    expect(el.shadowRoot.querySelector('[name="all_files"]')).to.not.be.null;
+  });
+
   it('emits a resultSelected event when a search result is clicked', async () => {
     const el = await fixture(container(results));
 

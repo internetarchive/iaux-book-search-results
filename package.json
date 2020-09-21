@@ -1,6 +1,6 @@
 {
   "name": "@internetarchive/ia-book-search-results",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Book search results pane for ia-menu-slider",
   "author": "Shane Riley, Internet Archive",
   "license": "AGPL-3.0-only",

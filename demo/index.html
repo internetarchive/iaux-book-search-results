@@ -155,7 +155,7 @@
       `,
       label: 'Search results',
       id: 'search',
-      component: html`<ia-book-search-results .query=${'bristol'} ?renderHeader=${true}></ia-book-search-results>`
+      component: html`<ia-book-search-results .query=${'bristol'} ?renderHeader=${true} ?renderSearchAllFiles=${true}></ia-book-search-results>`
     };
     menuSlider.menus = [searchMenu];
     menuSlider.open = true;
