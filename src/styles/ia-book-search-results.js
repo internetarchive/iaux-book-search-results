@@ -132,4 +132,33 @@ mark {
   border: 1px solid var(--searchResultBorder);
   border-radius: 2px;
 }
+
+.loading {
+  text-align: center;
+}
+
+.loading p {
+  padding: 0 0 1rem 0;
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.loading button {
+  -webkit-appearance: none;
+  appearance: none;
+  padding: .5rem .7rem;
+  font: normal 1.4rem "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: var(--primaryTextColor);
+  border: 1px solid #656565;
+  border-radius: 3px;
+  cursor: pointer;
+  background: transparent;
+}
+
+ia-activity-indicator {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+}
 `;

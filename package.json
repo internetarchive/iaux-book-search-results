@@ -1,6 +1,6 @@
 {
   "name": "@internetarchive/ia-book-search-results",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Book search results pane for ia-menu-slider",
   "author": "Shane Riley, Internet Archive",
   "license": "AGPL-3.0-only",
@@ -19,6 +19,7 @@
     "test:watch": "karma start --auto-watch=true --single-run=false"
   },
   "dependencies": {
+    "@internetarchive/ia-activity-indicator": "0.0.1",
     "@internetarchive/icon-collapse-sidebar": "^1.1.0",
     "lit-element": "^2.2.1",
     "lit-html": "^1.1.2"

@@ -27,6 +27,8 @@
       --searchResultBorder: #fff;
       --closeMenuIconWidth: 20px;
       --closeMenuIconHeight: 20px;
+      --activityIndicatorLoadingDotColor: var(--primaryTextColor);
+      --activityIndicatorLoadingRingColor: var(--primaryTextColor);
     }
 
     html {
@@ -193,6 +195,12 @@
           button.value = originalButtonValue;
           renderMetadata(searchController);
         });
+      });
+
+      document.addEventListener('bookSearchCanceled', searchController.cancelSearch.bind(searchController));
+
+      document.addEventListener('BookReader:SearchCallback', () => {
+        menuSlider.shadowRoot.querySelector('ia-book-search-results').queryInProgress = false;
       });
 
       document.addEventListener('resultSelected', ({ detail }) => {

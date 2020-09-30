@@ -4,16 +4,23 @@ export default {
   },
 
   performSearch(query) {
-    const req = new XMLHttpRequest();
-    req.addEventListener('load', ({ target }) => {
+    if (this.req) { this.cancelSearch(); }
+
+    this.req = new XMLHttpRequest();
+    this.req.addEventListener('load', ({ target }) => {
+      this.req = null;
       const e = new Event('BookReader:SearchCallback');
       e.detail = {
         results: JSON.parse(target.responseText).matches,
       };
       document.dispatchEvent(e);
     });
-    req.open('GET', this.searchURL(query));
-    req.send();
+    this.req.open('GET', this.searchURL(query));
+    this.req.send();
+  },
+
+  cancelSearch() {
+    this.req.abort();
   },
 
   fetchMetadata(identifier, cb) {

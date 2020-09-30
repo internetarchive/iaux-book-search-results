@@ -1,5 +1,6 @@
 import { nothing } from 'lit-html';
 import { html, LitElement } from 'lit-element';
+import '@internetarchive/ia-activity-indicator/ia-activity-indicator';
 import bookSearchResultsCSS from './styles/ia-book-search-results.js';
 import { BookSearchResult } from './book-search-result.js';
 
@@ -13,6 +14,7 @@ export class IABookSearchResults extends LitElement {
   static get properties() {
     return {
       query: { type: String },
+      queryInProgress: { type: Boolean },
       renderHeader: { type: Boolean },
       renderSearchAllFiles: { type: Boolean },
       results: {
@@ -25,7 +27,9 @@ export class IABookSearchResults extends LitElement {
     super();
 
     this.results = [];
+    this.queryInProgress = false;
     this.renderHeader = false;
+    this.renderSearchAllFields = false;
 
     this.bindBookReaderListeners();
   }
@@ -44,6 +48,9 @@ export class IABookSearchResults extends LitElement {
 
   performSearch(e) {
     e.preventDefault();
+
+    this.queryInProgress = true;
+
     this.dispatchEvent(new CustomEvent('bookSearchInitiated', {
       bubbles: true,
       composed: true,
@@ -55,6 +62,18 @@ export class IABookSearchResults extends LitElement {
 
   selectResult() {
     this.dispatchEvent(new CustomEvent('closeMenu', {
+      bubbles: true,
+      composed: true,
+    }));
+  }
+
+  cancelSearch() {
+    this.queryInProgress = false;
+    this.dispatchSearchCanceled();
+  }
+
+  dispatchSearchCanceled() {
+    this.dispatchEvent(new CustomEvent('bookSearchCanceled', {
       bubbles: true,
       composed: true,
     }));
@@ -81,6 +100,17 @@ export class IABookSearchResults extends LitElement {
     return this.renderSearchAllFiles ? controls : nothing;
   }
 
+  get loadingIndicator() {
+    const loadingTemplate = html`
+      <div class="loading">
+        <ia-activity-indicator mode="processing"></ia-activity-indicator>
+        <p>Searching</p>
+        <button @click=${this.cancelSearch}>Cancel</button>
+      </div>
+    `;
+    return this.queryInProgress ? loadingTemplate : nothing;
+  }
+
   render() {
     return html`
       ${this.headerSection}
@@ -90,6 +120,7 @@ export class IABookSearchResults extends LitElement {
           <input type="search" name="query" @keyup=${this.setQuery} .value=${this.query} />
         </fieldset>
       </form>
+      ${this.loadingIndicator}
       <ul>
         ${this.results.map(match => html`<book-search-result .match=${match} @resultSelected=${this.selectResult}></book-search-result>`)}
       </ul>
