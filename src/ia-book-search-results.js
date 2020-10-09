@@ -48,9 +48,6 @@ export class IABookSearchResults extends LitElement {
 
   performSearch(e) {
     e.preventDefault();
-
-    this.queryInProgress = true;
-
     this.dispatchEvent(new CustomEvent('bookSearchInitiated', {
       bubbles: true,
       composed: true,
@@ -105,7 +102,6 @@ export class IABookSearchResults extends LitElement {
       <div class="loading">
         <ia-activity-indicator mode="processing"></ia-activity-indicator>
         <p>Searching</p>
-        <button @click=${this.cancelSearch}>Cancel</button>
       </div>
     `;
     return this.queryInProgress ? loadingTemplate : nothing;
