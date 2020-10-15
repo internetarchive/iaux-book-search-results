@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { nothing } from 'lit-html';
 import { html, LitElement } from 'lit-element';
 import '@internetarchive/ia-activity-indicator/ia-activity-indicator';
@@ -104,13 +105,12 @@ export class IABookSearchResults extends LitElement {
   }
 
   get loadingIndicator() {
-    const loadingTemplate = html`
+    return html`
       <div class="loading">
         <ia-activity-indicator mode="processing"></ia-activity-indicator>
         <p>Searching</p>
       </div>
     `;
-    return this.queryInProgress ? loadingTemplate : nothing;
   }
 
   get resultsSet() {
@@ -136,7 +136,7 @@ export class IABookSearchResults extends LitElement {
           <input type="search" name="query" @keyup=${this.setQuery} .value=${this.query} />
         </fieldset>
       </form>
-      ${this.loadingIndicator}
+      ${this.queryInProgress ? this.loadingIndicator : nothing}
       ${this.results.length ? this.resultsSet : nothing}
     `;
   }
