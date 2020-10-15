@@ -69,8 +69,8 @@ label.checkbox:after {
 
 [type="search"] {
   -webkit-appearance: textfield;
-  width: 100%;
-  height: 2.2rem;
+  width: 98%;
+  height: 3rem;
   padding: 0 1.5rem;
   box-sizing: border-box;
   font: normal 1.6rem "Helvetica Neue", Helvetica, Arial, sans-serif;
