@@ -48,6 +48,10 @@ export class IABookSearchResults extends LitElement {
 
   performSearch(e) {
     e.preventDefault();
+    const input = e.currentTarget.querySelector('input[type="search"]');
+    if (!input || !input.value) {
+      return;
+    }
     this.dispatchEvent(new CustomEvent('bookSearchInitiated', {
       bubbles: true,
       composed: true,
