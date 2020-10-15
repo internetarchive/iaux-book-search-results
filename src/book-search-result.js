@@ -37,11 +37,16 @@ export class BookSearchResult extends LitElement {
 
   render() {
     const { match } = this;
+    const { par = [] } = match;
+    const [resultDetails = {}] = par;
+    const pageNumber = Number.isInteger(resultDetails.page)
+      ? html`<p class="page-num">Page ${resultDetails.page}</p>` : nothing;
     const coverImage = html`<img src="${match.cover}" />`;
     return html`
       <li @click=${this.resultSelected}>
         ${match.cover ? coverImage : nothing}
-        <h4>${match.title}</h4>
+        <h4>${match.title ? match.title : nothing}</h4>
+        ${pageNumber}
         ${this.highlightedHit(match.text)}
       </li>
     `;

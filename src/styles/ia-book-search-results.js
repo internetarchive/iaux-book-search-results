@@ -94,6 +94,11 @@ label.checkbox:after {
   background: #fff;
 }
 
+p.page-num {
+  font-weight: bold;
+  padding-bottom: 0;
+}
+
 ul {
   padding: 0;
   margin: 0;
