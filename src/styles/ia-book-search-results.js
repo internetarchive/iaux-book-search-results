@@ -105,6 +105,7 @@ ul.show-image li {
 }
 
 li {
+  cursor: pointer;
   grid-template-columns: 30px 1fr;
   grid-gap: 0 .5rem;
 }
