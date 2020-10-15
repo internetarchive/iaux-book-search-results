@@ -6,7 +6,7 @@ export default css`
 :host {
   display: block;
   height: 100%;
-  padding: 1.5rem 0;
+  padding: 1.5rem 1rem 0 0;
   overflow-y: auto;
   font-size: 1.4rem;
   box-sizing: border-box;
