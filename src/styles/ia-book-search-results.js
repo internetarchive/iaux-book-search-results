@@ -6,7 +6,7 @@ export default css`
 :host {
   display: block;
   height: 100%;
-  padding: 1.5rem 1rem 0 0;
+  padding: 1.5rem 1rem 2rem 0;
   overflow-y: auto;
   font-size: 1.4rem;
   box-sizing: border-box;
@@ -100,8 +100,11 @@ ul {
   list-style: none;
 }
 
-li {
+ul.show-image li {
   display: grid;
+}
+
+li {
   grid-template-columns: 30px 1fr;
   grid-gap: 0 .5rem;
 }

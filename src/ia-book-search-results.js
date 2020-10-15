@@ -17,6 +17,7 @@ export class IABookSearchResults extends LitElement {
       queryInProgress: { type: Boolean },
       renderHeader: { type: Boolean },
       renderSearchAllFiles: { type: Boolean },
+      displayResultImages: { type: Boolean },
       results: {
         type: Array,
       },
@@ -30,6 +31,7 @@ export class IABookSearchResults extends LitElement {
     this.queryInProgress = false;
     this.renderHeader = false;
     this.renderSearchAllFields = false;
+    this.displayResultImages = false;
 
     this.bindBookReaderListeners();
   }
@@ -111,6 +113,20 @@ export class IABookSearchResults extends LitElement {
     return this.queryInProgress ? loadingTemplate : nothing;
   }
 
+  get resultsSet() {
+    const resultsClass = this.displayResultImages ? 'show-image' : '';
+    return html`
+      <ul class="results ${resultsClass}">
+        ${this.results.map(match => html`
+            <book-search-result
+              .match=${match}
+              @resultSelected=${this.selectResult}
+            ></book-search-result>
+          `)}
+      </ul>
+    `;
+  }
+
   render() {
     return html`
       ${this.headerSection}
@@ -121,9 +137,7 @@ export class IABookSearchResults extends LitElement {
         </fieldset>
       </form>
       ${this.loadingIndicator}
-      <ul>
-        ${this.results.map(match => html`<book-search-result .match=${match} @resultSelected=${this.selectResult}></book-search-result>`)}
-      </ul>
+      ${this.results.length ? this.resultsSet : nothing}
     `;
   }
 }
