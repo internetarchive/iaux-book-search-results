@@ -1,6 +1,6 @@
 {
   "name": "@internetarchive/ia-book-search-results",
-  "version": "0.1.13-alpha2",
+  "version": "0.1.13-alpha3",
   "description": "Book search results pane for ia-menu-slider",
   "author": "Shane Riley, Isa Herico Velasco, Internet Archive",
   "license": "AGPL-3.0-only",
