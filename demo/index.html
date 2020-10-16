@@ -25,8 +25,8 @@
       --searchResultText: #adaedc;
       --searchResultBg: #272958;
       --searchResultBorder: #fff;
-      --closeMenuIconWidth: 20px;
-      --closeMenuIconHeight: 20px;
+      --menuSliderHeaderIconHeight: 20px;
+      --menuSliderHeaderIconWidth: 20px;
       --activityIndicatorLoadingDotColor: var(--primaryTextColor);
       --activityIndicatorLoadingRingColor: var(--primaryTextColor);
     }
@@ -128,7 +128,7 @@
     import '../ia-book-search-results.js';
     import '@internetarchive/icon-search/icon-search.js';
     import '@internetarchive/ia-menu-slider/ia-menu-slider';
-    import searchController from './demo/search_controller.js';
+    import searchController from './search_controller.js';
 
     Object.assign(searchController, {
       itemID: 'artofcaricaturin006061mbp',
@@ -157,7 +157,7 @@
       `,
       label: 'Search results',
       id: 'search',
-      component: html`<ia-book-search-results .query=${'bristol'} ?renderHeader=${true} ?renderSearchAllFiles=${true}></ia-book-search-results>`
+      component: html`<ia-book-search-results .query=${'bristol'} ?renderHeader=${false} ?renderSearchAllFiles=${false}></ia-book-search-results>`,
     };
     menuSlider.menus = [searchMenu];
     menuSlider.open = true;
@@ -170,6 +170,9 @@
     // passing search query to search controller.
     document.addEventListener('bookSearchInitiated', ({ detail }) => {
       searchController.performSearch(detail.query);
+      menuSlider.shadowRoot.querySelector('ia-book-search-results').results = [];
+      menuSlider.shadowRoot.querySelector('ia-book-search-results').queryInProgress = true;
+      menuSlider.shadowRoot.querySelector('ia-book-search-results').errorMessage = '';
     });
 
     menuSlider.updateComplete.then(() => {
@@ -199,8 +202,19 @@
 
       document.addEventListener('bookSearchCanceled', searchController.cancelSearch.bind(searchController));
 
-      document.addEventListener('BookReader:SearchCallback', () => {
+      document.addEventListener('BookReader:SearchCallback', (event) => {
+        const results = event.detail.results || [];
+        const rawBlob = event.detail.actual || {};
+
+        menuSlider.shadowRoot.querySelector('ia-book-search-results').results = results;
         menuSlider.shadowRoot.querySelector('ia-book-search-results').queryInProgress = false;
+
+        if (rawBlob.error) {
+          console.log('error', rawBlob);
+          menuSlider.shadowRoot.querySelector('ia-book-search-results').errorMessage = 'Something has happened, please try again';
+        } else if (!results.length) {
+          menuSlider.shadowRoot.querySelector('ia-book-search-results').errorMessage = '0 results';
+        }
       });
 
       document.addEventListener('resultSelected', ({ detail }) => {
