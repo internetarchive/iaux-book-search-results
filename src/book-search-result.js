@@ -40,7 +40,7 @@ export class BookSearchResult extends LitElement {
     const { par = [] } = match;
     const [resultDetails = {}] = par;
     const pageNumber = Number.isInteger(resultDetails.page)
-      ? html`<p class="page-num">Page ${resultDetails.page}</p>` : nothing;
+      ? html`<p class="page-num">Page -${resultDetails.page}-</p>` : nothing;
     const coverImage = html`<img src="${match.cover}" />`;
     return html`
       <li @click=${this.resultSelected}>

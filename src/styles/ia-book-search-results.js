@@ -99,8 +99,12 @@ p.page-num {
   padding-bottom: 0;
 }
 
+.results-container {
+  padding-bottom: 2rem;
+}
+
 ul {
-  padding: 0;
+  padding: 0 0 2rem 0;
   margin: 0;
   list-style: none;
 }

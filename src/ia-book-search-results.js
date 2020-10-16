@@ -150,9 +150,11 @@ export class IABookSearchResults extends LitElement {
     return html`
       ${this.headerSection}
       ${this.searchForm}
-      ${this.queryInProgress ? this.loadingIndicator : nothing}
-      ${this.errorMessage ? this.setErrorMessage : nothing}
-      ${this.results.length ? this.resultsSet : nothing}
+      <div class="results-container">
+        ${this.queryInProgress ? this.loadingIndicator : nothing}
+        ${this.errorMessage ? this.setErrorMessage : nothing}
+        ${this.results.length ? this.resultsSet : nothing}
+      </div>
     `;
   }
 }
