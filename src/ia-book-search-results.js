@@ -19,6 +19,7 @@ export class IABookSearchResults extends LitElement {
       renderHeader: { type: Boolean },
       renderSearchAllFiles: { type: Boolean },
       displayResultImages: { type: Boolean },
+      errorMessage: { type: String },
       results: {
         type: Array,
       },
@@ -33,6 +34,7 @@ export class IABookSearchResults extends LitElement {
     this.renderHeader = false;
     this.renderSearchAllFields = false;
     this.displayResultImages = false;
+    this.errorMessage = '';
 
     this.bindBookReaderListeners();
   }
@@ -127,16 +129,29 @@ export class IABookSearchResults extends LitElement {
     `;
   }
 
-  render() {
+  get searchForm() {
     return html`
-      ${this.headerSection}
       <form action="" method="get" @submit=${this.performSearch}>
         <fieldset>
           ${this.searchMultipleControls}
           <input type="search" name="query" @keyup=${this.setQuery} .value=${this.query} />
         </fieldset>
       </form>
+    `;
+  }
+
+  get setErrorMessage() {
+    return html`
+      <p class="error-message">${this.errorMessage}</p>
+    `;
+  }
+
+  render() {
+    return html`
+      ${this.headerSection}
+      ${this.searchForm}
       ${this.queryInProgress ? this.loadingIndicator : nothing}
+      ${this.errorMessage ? this.setErrorMessage : nothing}
       ${this.results.length ? this.resultsSet : nothing}
     `;
   }
