@@ -109,12 +109,14 @@ describe('<ia-book-search-results>', () => {
     expect(el.query).to.equal(searchQuery);
   });
 
-  it('emits a custom event when search form submitted', async () => {
+  it('emits a custom event when search form submitted when input is populated', async () => {
     const el = await fixture(container(results));
 
-    setTimeout(() => (
-      el.shadowRoot.querySelector('form').dispatchEvent(new Event('submit'))
-    ));
+    setTimeout(() => {
+      const form = el.shadowRoot.querySelector('form');
+      form.querySelector('input').value = 'foo';
+      form.dispatchEvent(new Event('submit'));
+    });
     const response = await oneEvent(el, 'bookSearchInitiated');
 
     expect(response).to.exist;
