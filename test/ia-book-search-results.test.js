@@ -178,6 +178,22 @@ describe('<ia-book-search-results>', () => {
     expect(el.shadowRoot.querySelector('.loading')).to.not.be.null;
   });
 
+  it('renders an error message when provided', async () => {
+    const el = await fixture(container([]));
+    const message = 'Sample error message';
+    el.errorMessage = message;
+    await el.updateComplete;
+
+    expect(el.shadowRoot.querySelector('.error-message')).to.exist;
+  });
+
+  it('displays results images when told to', async () => {
+    const el = await fixture(container(results));
+    el.displayResultImages = true;
+    await el.updateComplete;
+
+    expect(el.shadowRoot.querySelector('.results.show-image')).to.exist;
+  });
   // it("emits a bookSearchCanceled event when loading state's cancel action clicked", async () => {
   //   const el = await fixture(container(results));
 
