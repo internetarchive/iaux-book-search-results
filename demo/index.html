@@ -210,7 +210,7 @@
         menuSlider.shadowRoot.querySelector('ia-book-search-results').queryInProgress = false;
 
         if (rawBlob.error) {
-          console.log('error', rawBlob);
+          console.log('Search request error', rawBlob);
           menuSlider.shadowRoot.querySelector('ia-book-search-results').errorMessage = 'Something has happened, please try again';
         } else if (!results.length) {
           menuSlider.shadowRoot.querySelector('ia-book-search-results').errorMessage = '0 results';

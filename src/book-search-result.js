@@ -45,7 +45,7 @@ export class BookSearchResult extends LitElement {
     return html`
       <li @click=${this.resultSelected}>
         ${match.cover ? coverImage : nothing}
-        <h4>${match.title ? match.title : nothing}</h4>
+        <h4>${match.title || nothing}</h4>
         ${pageNumber}
         ${this.highlightedHit(match.text)}
       </li>
