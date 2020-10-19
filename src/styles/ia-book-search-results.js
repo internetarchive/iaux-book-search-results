@@ -6,7 +6,7 @@ export default css`
 :host {
   display: block;
   height: 100%;
-  padding: 1.5rem 1rem;
+  padding: 1.5rem 1rem 2rem 0;
   overflow-y: auto;
   font-size: 1.4rem;
   box-sizing: border-box;
@@ -69,8 +69,8 @@ label.checkbox:after {
 
 [type="search"] {
   -webkit-appearance: textfield;
-  width: 100%;
-  height: 2.2rem;
+  width: 98%;
+  height: 3rem;
   padding: 0 1.5rem;
   box-sizing: border-box;
   font: normal 1.6rem "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -94,14 +94,27 @@ label.checkbox:after {
   background: #fff;
 }
 
+p.page-num {
+  font-weight: bold;
+  padding-bottom: 0;
+}
+
+.results-container {
+  padding-bottom: 2rem;
+}
+
 ul {
-  padding: 0;
+  padding: 0 0 2rem 0;
   margin: 0;
   list-style: none;
 }
 
-li {
+ul.show-image li {
   display: grid;
+}
+
+li {
+  cursor: pointer;
   grid-template-columns: 30px 1fr;
   grid-gap: 0 .5rem;
 }

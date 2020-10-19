@@ -12,6 +12,7 @@ export default {
       const e = new Event('BookReader:SearchCallback');
       e.detail = {
         results: JSON.parse(target.responseText).matches,
+        actual: JSON.parse(target.responseText),
       };
       document.dispatchEvent(e);
     });

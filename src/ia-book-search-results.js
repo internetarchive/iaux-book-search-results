@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { nothing } from 'lit-html';
 import { html, LitElement } from 'lit-element';
 import '@internetarchive/ia-activity-indicator/ia-activity-indicator';
@@ -17,6 +18,8 @@ export class IABookSearchResults extends LitElement {
       queryInProgress: { type: Boolean },
       renderHeader: { type: Boolean },
       renderSearchAllFiles: { type: Boolean },
+      displayResultImages: { type: Boolean },
+      errorMessage: { type: String },
       results: {
         type: Array,
       },
@@ -30,6 +33,8 @@ export class IABookSearchResults extends LitElement {
     this.queryInProgress = false;
     this.renderHeader = false;
     this.renderSearchAllFields = false;
+    this.displayResultImages = false;
+    this.errorMessage = '';
 
     this.bindBookReaderListeners();
   }
@@ -48,6 +53,10 @@ export class IABookSearchResults extends LitElement {
 
   performSearch(e) {
     e.preventDefault();
+    const input = e.currentTarget.querySelector('input[type="search"]');
+    if (!input || !input.value) {
+      return;
+    }
     this.dispatchEvent(new CustomEvent('bookSearchInitiated', {
       bubbles: true,
       composed: true,
@@ -98,28 +107,54 @@ export class IABookSearchResults extends LitElement {
   }
 
   get loadingIndicator() {
-    const loadingTemplate = html`
+    return html`
       <div class="loading">
         <ia-activity-indicator mode="processing"></ia-activity-indicator>
         <p>Searching</p>
       </div>
     `;
-    return this.queryInProgress ? loadingTemplate : nothing;
   }
 
-  render() {
+  get resultsSet() {
+    const resultsClass = this.displayResultImages ? 'show-image' : '';
     return html`
-      ${this.headerSection}
+      <ul class="results ${resultsClass}">
+        ${this.results.map(match => html`
+            <book-search-result
+              .match=${match}
+              @resultSelected=${this.selectResult}
+            ></book-search-result>
+          `)}
+      </ul>
+    `;
+  }
+
+  get searchForm() {
+    return html`
       <form action="" method="get" @submit=${this.performSearch}>
         <fieldset>
           ${this.searchMultipleControls}
           <input type="search" name="query" @keyup=${this.setQuery} .value=${this.query} />
         </fieldset>
       </form>
-      ${this.loadingIndicator}
-      <ul>
-        ${this.results.map(match => html`<book-search-result .match=${match} @resultSelected=${this.selectResult}></book-search-result>`)}
-      </ul>
+    `;
+  }
+
+  get setErrorMessage() {
+    return html`
+      <p class="error-message">${this.errorMessage}</p>
+    `;
+  }
+
+  render() {
+    return html`
+      ${this.headerSection}
+      ${this.searchForm}
+      <div class="results-container">
+        ${this.queryInProgress ? this.loadingIndicator : nothing}
+        ${this.errorMessage ? this.setErrorMessage : nothing}
+        ${this.results.length ? this.resultsSet : nothing}
+      </div>
     `;
   }
 }

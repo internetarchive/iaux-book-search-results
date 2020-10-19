@@ -109,12 +109,14 @@ describe('<ia-book-search-results>', () => {
     expect(el.query).to.equal(searchQuery);
   });
 
-  it('emits a custom event when search form submitted', async () => {
+  it('emits a custom event when search form submitted when input is populated', async () => {
     const el = await fixture(container(results));
 
-    setTimeout(() => (
-      el.shadowRoot.querySelector('form').dispatchEvent(new Event('submit'))
-    ));
+    setTimeout(() => {
+      const form = el.shadowRoot.querySelector('form');
+      form.querySelector('input').value = 'foo';
+      form.dispatchEvent(new Event('submit'));
+    });
     const response = await oneEvent(el, 'bookSearchInitiated');
 
     expect(response).to.exist;
@@ -176,6 +178,22 @@ describe('<ia-book-search-results>', () => {
     expect(el.shadowRoot.querySelector('.loading')).to.not.be.null;
   });
 
+  it('renders an error message when provided', async () => {
+    const el = await fixture(container([]));
+    const message = 'Sample error message';
+    el.errorMessage = message;
+    await el.updateComplete;
+
+    expect(el.shadowRoot.querySelector('.error-message')).to.exist;
+  });
+
+  it('displays results images when told to', async () => {
+    const el = await fixture(container(results));
+    el.displayResultImages = true;
+    await el.updateComplete;
+
+    expect(el.shadowRoot.querySelector('.results.show-image')).to.exist;
+  });
   // it("emits a bookSearchCanceled event when loading state's cancel action clicked", async () => {
   //   const el = await fixture(container(results));
 
