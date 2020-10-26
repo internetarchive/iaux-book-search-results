@@ -20,7 +20,6 @@ export class IABookSearchResults extends LitElement {
       renderHeader: { type: Boolean },
       renderSearchAllFiles: { type: Boolean },
       displayResultImages: { type: Boolean },
-      focusInputIfPossible: { type: Boolean },
       errorMessage: { type: String },
     };
   }
@@ -34,7 +33,6 @@ export class IABookSearchResults extends LitElement {
     this.renderHeader = false;
     this.renderSearchAllFields = false;
     this.displayResultImages = false;
-    this.focusInputIfPossible = true;
     this.errorMessage = '';
 
     this.bindBookReaderListeners();
