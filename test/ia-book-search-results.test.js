@@ -194,6 +194,27 @@ describe('<ia-book-search-results>', () => {
 
     expect(el.shadowRoot.querySelector('.results.show-image')).to.exist;
   });
+
+  describe('search input focus', () => {
+    it('will always try to re-focus once the component updates', async () => {
+      const el = await fixture(container(results));
+      el.focusOnInputIfNecessary = sinon.fake();
+      // update any property to fire lifecycle
+      el.results = [];
+      await el.updateComplete;
+
+      expect(el.focusOnInputIfNecessary.callCount).to.equal(1);
+    });
+    it('refocuses on input when results are empty', async () => {
+      const el = await fixture(container(results));
+      el.results = [];
+      await el.updateComplete;
+
+      const searchInputField = el.shadowRoot.querySelector('input[type=\'search\']');
+      expect(searchInputField).to.equal(el.shadowRoot.activeElement);
+    });
+  });
+
   // it("emits a bookSearchCanceled event when loading state's cancel action clicked", async () => {
   //   const el = await fixture(container(results));
 
