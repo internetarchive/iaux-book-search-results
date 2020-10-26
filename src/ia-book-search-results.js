@@ -38,9 +38,7 @@ export class IABookSearchResults extends LitElement {
     this.bindBookReaderListeners();
   }
 
-  /**
-   * lifecycle method to adjust behavior post-render
-   */
+  /** @inheritdoc */
   updated() {
     this.focusOnInputIfNecessary();
   }
