@@ -69,7 +69,7 @@ label.checkbox:after {
 
 [type="search"] {
   -webkit-appearance: textfield;
-  width: 98%;
+  width: 100%;
   height: 3rem;
   padding: 0 1.5rem;
   box-sizing: border-box;
@@ -97,6 +97,10 @@ label.checkbox:after {
 p.page-num {
   font-weight: bold;
   padding-bottom: 0;
+}
+
+p.search-cta {
+  text-align: center;
 }
 
 .results-container {
