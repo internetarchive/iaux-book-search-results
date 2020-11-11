@@ -169,22 +169,31 @@ describe('<ia-book-search-results>', () => {
     expect(response).to.exist;
   });
 
-  it('renders a loading state when queryInProgress is true', async () => {
-    const el = await fixture(container(results));
+  describe('Search results placeholders', () => {
+    it('renders a loading state when queryInProgress is true', async () => {
+      const el = await fixture(container(results));
 
-    el.queryInProgress = true;
-    await el.updateComplete;
+      el.queryInProgress = true;
+      await el.updateComplete;
 
-    expect(el.shadowRoot.querySelector('.loading')).to.not.be.null;
-  });
+      expect(el.shadowRoot.querySelector('.loading')).to.not.be.null;
+    });
+    it('renders an error message when provided', async () => {
+      const el = await fixture(container([]));
+      const message = 'Sample error message';
+      el.errorMessage = message;
+      await el.updateComplete;
 
-  it('renders an error message when provided', async () => {
-    const el = await fixture(container([]));
-    const message = 'Sample error message';
-    el.errorMessage = message;
-    await el.updateComplete;
+      expect(el.shadowRoot.querySelector('.error-message')).to.exist;
+      expect(el.shadowRoot.querySelector('.search-cta')).to.be.null;
+    });
+    it('displays call to search when no results or search errors are showing', async () => {
+      const el = await fixture(container([]));
 
-    expect(el.shadowRoot.querySelector('.error-message')).to.exist;
+      expect(el.shadowRoot.querySelector('.search-cta')).to.exist;
+      expect(el.shadowRoot.querySelector('.error-message')).to.be.null;
+      expect(el.shadowRoot.querySelector('.results')).to.be.null;
+    });
   });
 
   it('displays results images when told to', async () => {
