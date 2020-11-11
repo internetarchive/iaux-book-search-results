@@ -14,15 +14,13 @@ export class IABookSearchResults extends LitElement {
 
   static get properties() {
     return {
+      results: { type: Array },
       query: { type: String },
       queryInProgress: { type: Boolean },
       renderHeader: { type: Boolean },
       renderSearchAllFiles: { type: Boolean },
       displayResultImages: { type: Boolean },
       errorMessage: { type: String },
-      results: {
-        type: Array,
-      },
     };
   }
 
@@ -30,6 +28,7 @@ export class IABookSearchResults extends LitElement {
     super();
 
     this.results = [];
+    this.query = '';
     this.queryInProgress = false;
     this.renderHeader = false;
     this.renderSearchAllFields = false;
@@ -39,8 +38,24 @@ export class IABookSearchResults extends LitElement {
     this.bindBookReaderListeners();
   }
 
+  /** @inheritdoc */
+  updated() {
+    this.focusOnInputIfNecessary();
+  }
+
   bindBookReaderListeners() {
     document.addEventListener('BookReader:SearchCallback', this.setResults.bind(this));
+  }
+
+  /**
+   * Provide immediate input focus if there aren't any results displayed
+   */
+  focusOnInputIfNecessary() {
+    if (this.results.length) {
+      return;
+    }
+    const searchInput = this.shadowRoot.querySelector('input[type=\'search\']');
+    searchInput.focus();
   }
 
   setResults({ detail }) {
@@ -134,7 +149,13 @@ export class IABookSearchResults extends LitElement {
       <form action="" method="get" @submit=${this.performSearch}>
         <fieldset>
           ${this.searchMultipleControls}
-          <input type="search" name="query" @keyup=${this.setQuery} .value=${this.query} />
+          <input
+            type="search"
+            name="query"
+            alt="Search inside this book."
+            @keyup=${this.setQuery}
+            .value=${this.query}
+          />
         </fieldset>
       </form>
     `;
