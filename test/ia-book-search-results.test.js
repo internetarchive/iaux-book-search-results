@@ -233,7 +233,7 @@ describe('<ia-book-search-results>', () => {
       setTimeout(() => (
         el.shadowRoot.querySelector('input[type=\'button\']').click()
       ));
-      const response = await oneEvent(el, 'removeSearchResult');
+      const response = await oneEvent(el, 'BookReader:SearchResultsCleared');
       expect(response).to.exist;
     });
   });

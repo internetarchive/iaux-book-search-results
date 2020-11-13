@@ -88,13 +88,13 @@ export class IABookSearchResults extends LitElement {
     }));
   }
 
-  clearSearchFieldAndResult() {
+  fieldAndSearchResultsCleared() {
     this.shadowRoot.querySelector('input[type=\'search\']').value = '';
     this.errorMessage = '';
     if (this.queryInProgress) {
       this.cancelSearch();
     }
-    this.dispatchEvent(new CustomEvent('removeSearchResult', {
+    this.dispatchEvent(new CustomEvent('BookReader:SearchResultsCleared', {
       bubbles: true,
       composed: true,
     }));
@@ -170,7 +170,7 @@ export class IABookSearchResults extends LitElement {
           />
           <input
             type="button"
-            @click=${this.clearSearchFieldAndResult}
+            @click=${this.fieldAndSearchResultsCleared}
             value="X"
           />
         </fieldset>

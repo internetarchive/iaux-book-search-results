@@ -217,7 +217,7 @@
         }
       });
 
-      document.addEventListener('removeSearchResult', (event) => {
+      document.addEventListener('BookReader:SearchResultsCleared', () => {
         menuSlider.shadowRoot.querySelector('ia-book-search-results').results = [];
       });
 
