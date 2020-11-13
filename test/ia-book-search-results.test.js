@@ -80,21 +80,21 @@ describe('<ia-book-search-results>', () => {
 
   it('renders results that contain the book title', async () => {
     sinon.replace(IABookSearchResults.prototype, 'createRenderRoot', function createRenderRoot() { return this; });
-    const el = await fixture(container(results));
+    const el = await fixture(container(results, searchQuery));
 
     expect(el.innerHTML).to.include(`${results[0].title}`);
   });
 
   it('renders results that contain a highlighted match', async () => {
     sinon.replace(IABookSearchResults.prototype, 'createRenderRoot', function createRenderRoot() { return this; });
-    const el = await fixture(container(results));
+    const el = await fixture(container(results, searchQuery));
 
     expect(el.innerHTML).to.include(`<mark>${searchQuery}</mark>`);
   });
 
   it('renders results that contain an optional cover image', async () => {
     sinon.replace(IABookSearchResults.prototype, 'createRenderRoot', function createRenderRoot() { return this; });
-    const el = await fixture(container(results));
+    const el = await fixture(container(results, searchQuery));
 
     expect(el.innerHTML).to.include(`<img src="${results[0].cover}">`);
   });
@@ -148,7 +148,7 @@ describe('<ia-book-search-results>', () => {
   });
 
   it('emits a resultSelected event when a search result is clicked', async () => {
-    const el = await fixture(container(results));
+    const el = await fixture(container(results, searchQuery));
 
     setTimeout(() => (
       el.shadowRoot.querySelector('book-search-result').querySelector('li').click()
@@ -159,7 +159,7 @@ describe('<ia-book-search-results>', () => {
   });
 
   it('emits a closeMenu event when a search result is clicked', async () => {
-    const el = await fixture(container(results));
+    const el = await fixture(container(results, searchQuery));
 
     setTimeout(() => (
       el.shadowRoot.querySelector('book-search-result').querySelector('li').click()
@@ -189,7 +189,7 @@ describe('<ia-book-search-results>', () => {
   });
 
   it('displays results images when told to', async () => {
-    const el = await fixture(container(results));
+    const el = await fixture(container(results, searchQuery));
     el.displayResultImages = true;
     await el.updateComplete;
 
