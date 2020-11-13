@@ -66,6 +66,22 @@ export class IABookSearchResults extends LitElement {
     this.query = e.currentTarget.value;
   }
 
+  updateSearchState(e) {
+    this.setQuery(e);
+
+    if (!this.query) {
+      this.emitSearchCancelled();
+    }
+  }
+
+  emitSearchCancelled() {
+    this.dispatchEvent(new CustomEvent('bookSearchResultsCleared', {
+      detail: {
+        query: this.query,
+      },
+    }));
+  }
+
   performSearch(e) {
     e.preventDefault();
     const input = e.currentTarget.querySelector('input[type="search"]');
@@ -156,7 +172,7 @@ export class IABookSearchResults extends LitElement {
             name="query"
             placeholder=${inputPlaceholder}
             @keyup=${this.setQuery}
-            @search=${this.setQuery}
+            @search=${this.updateSearchState}
             .value=${this.query}
           />
         </fieldset>

@@ -53,6 +53,9 @@
             "description": "The match property from the book-search-result element"
           }
         ]
+      }, {
+        "name": "bookSearchResultsCleared",
+        "description": "Triggered when a search input has been cleared"
       }],
       "slots": [],
       "cssProperties": [

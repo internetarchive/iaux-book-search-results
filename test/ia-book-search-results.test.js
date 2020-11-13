@@ -185,14 +185,6 @@ describe('<ia-book-search-results>', () => {
       await el.updateComplete;
 
       expect(el.shadowRoot.querySelector('.error-message')).to.exist;
-      expect(el.shadowRoot.querySelector('.search-cta')).to.be.null;
-    });
-    it('displays call to search when no results or search errors are showing', async () => {
-      const el = await fixture(container([]));
-
-      expect(el.shadowRoot.querySelector('.search-cta')).to.exist;
-      expect(el.shadowRoot.querySelector('.error-message')).to.be.null;
-      expect(el.shadowRoot.querySelector('.results')).to.be.null;
     });
   });
 
