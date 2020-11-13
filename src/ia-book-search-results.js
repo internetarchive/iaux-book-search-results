@@ -145,14 +145,16 @@ export class IABookSearchResults extends LitElement {
   }
 
   get searchForm() {
+    const inputPlaceholder = 'Enter text to search for';
     return html`
       <form action="" method="get" @submit=${this.performSearch}>
         <fieldset>
           ${this.searchMultipleControls}
+          <label class="sr-only">${inputPlaceholder}</label>
           <input
             type="search"
             name="query"
-            alt="Search inside this book."
+            placeholder=${inputPlaceholder}
             @keyup=${this.setQuery}
             .value=${this.query}
           />
@@ -167,21 +169,15 @@ export class IABookSearchResults extends LitElement {
     `;
   }
 
-  get searchCTA() {
-    return html`<p class="search-cta"><em>Please enter text to search for</em></p>`;
-  }
-
   render() {
-    const showSearchCTA = (!this.queryInProgress && !this.errorMessage)
-    && (!this.queryInProgress && !this.results.length);
+    const showResults = this.query && this.results.length;
     return html`
       ${this.headerSection}
       ${this.searchForm}
       <div class="results-container">
         ${this.queryInProgress ? this.loadingIndicator : nothing}
         ${this.errorMessage ? this.setErrorMessage : nothing}
-        ${this.results.length ? this.resultsSet : nothing}
-        ${showSearchCTA ? this.searchCTA : nothing}
+        ${showResults ? this.resultsSet : nothing}
       </div>
     `;
   }

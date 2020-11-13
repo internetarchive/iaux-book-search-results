@@ -93,6 +93,12 @@ label.checkbox:after {
   mask-size: 100%;
   background: #fff;
 }
+[type="search"]::placeholder {
+  width: 100%;
+  display: block;
+  font-style: italic;
+  color: #fff;
+}
 
 p.page-num {
   font-weight: bold;
@@ -177,5 +183,15 @@ ia-activity-indicator {
   width: 40px;
   height: 40px;
   margin: 0 auto;
+}
+
+.sr-only {
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
 }
 `;
