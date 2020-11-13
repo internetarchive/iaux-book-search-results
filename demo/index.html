@@ -217,6 +217,10 @@
         }
       });
 
+      document.addEventListener('removeSearchResult', (event) => {
+        menuSlider.shadowRoot.querySelector('ia-book-search-results').results = [];
+      });
+
       document.addEventListener('resultSelected', ({ detail }) => {
         console.log(`Search result from page ${detail.match.par[0].page} was clicked`);
       });

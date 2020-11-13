@@ -88,6 +88,18 @@ export class IABookSearchResults extends LitElement {
     }));
   }
 
+  clearSearchFieldAndResult() {
+    this.shadowRoot.querySelector('input[type=\'search\']').value = '';
+    this.errorMessage = '';
+    if (this.queryInProgress) {
+      this.cancelSearch();
+    }
+    this.dispatchEvent(new CustomEvent('removeSearchResult', {
+      bubbles: true,
+      composed: true,
+    }));
+  }
+
   cancelSearch() {
     this.queryInProgress = false;
     this.dispatchSearchCanceled();
@@ -155,6 +167,11 @@ export class IABookSearchResults extends LitElement {
             alt="Search inside this book."
             @keyup=${this.setQuery}
             .value=${this.query}
+          />
+          <input
+            type="button"
+            @click=${this.clearSearchFieldAndResult}
+            value="X"
           />
         </fieldset>
       </form>

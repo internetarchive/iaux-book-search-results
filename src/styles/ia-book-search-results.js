@@ -1,6 +1,5 @@
 import { css } from 'lit-element';
 import checkmarkIcon from './icon_checkmark.js';
-import closeIcon from './icon_close.js';
 
 export default css`
 :host {
@@ -78,20 +77,24 @@ label.checkbox:after {
   border: 1px solid var(--primaryTextColor);
   border-radius: 1.5rem;
   background: transparent;
+  width: 88%;
 }
+
 [type="search"]:focus {
   outline: none;
 }
+
+[type="button"] {
+  width: 10%;
+  border: none;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  outline: none;
+}
+
 [type="search"]::-webkit-search-cancel-button {
-  width: 18px;
-  height: 18px;
-  -webkit-appearance: none;
-  appearance: none;
-  -webkit-mask: url('${closeIcon}') 0 0 no-repeat;
-  mask: url('${closeIcon}') 0 0 no-repeat;
-  -webkit-mask-size: 100%;
-  mask-size: 100%;
-  background: #fff;
+  display: none;
 }
 
 p.page-num {

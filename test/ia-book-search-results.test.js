@@ -224,6 +224,20 @@ describe('<ia-book-search-results>', () => {
     });
   });
 
+  describe('clear search result', () => {
+    it('emits a removeSearchResult event when you clear button is clicked', async () => {
+      const el = await fixture(container(results));
+      el.queryInProgress = true;
+      await el.updateComplete;
+
+      setTimeout(() => (
+        el.shadowRoot.querySelector('input[type=\'button\']').click()
+      ));
+      const response = await oneEvent(el, 'removeSearchResult');
+      expect(response).to.exist;
+    });
+  });
+
   // it("emits a bookSearchCanceled event when loading state's cancel action clicked", async () => {
   //   const el = await fixture(container(results));
 
