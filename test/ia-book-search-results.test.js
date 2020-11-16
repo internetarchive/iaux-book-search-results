@@ -216,7 +216,8 @@ describe('<ia-book-search-results>', () => {
     });
   });
 
-  // it("emits a bookSearchCanceled event when loading state's cancel action clicked", async () => {
+  // it("emits a bookSearchCanceled event when loading state's
+  //   cancel action clicked", async () => {
   //   const el = await fixture(container(results));
 
   //   el.queryInProgress = true;

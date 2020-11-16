@@ -171,7 +171,7 @@ export class IABookSearchResults extends LitElement {
             type="search"
             name="query"
             placeholder=${inputPlaceholder}
-            @keyup=${this.setQuery}
+            @keyup=${this.updateSearchState}
             @search=${this.updateSearchState}
             .value=${this.query}
           />
